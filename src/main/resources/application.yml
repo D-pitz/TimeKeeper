@@ -1,0 +1,28 @@
+server:
+  name: user-service
+  port: 7777
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/timekeeper
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    dbcp2:
+      test-while-idle: true
+    jackson:
+      serialization:
+        fail-on-empty-beans: false
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  h2:
+    console:
+      enabled: 'true'
+      driverClassName: org.h2.Driver
