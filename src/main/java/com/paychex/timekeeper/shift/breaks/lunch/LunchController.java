@@ -16,12 +16,12 @@ public class LunchController {
     @Autowired
     private LunchService lunchService;
 
-    @PutMapping("/{shiftId}")
+    @GetMapping("/{shiftId}")
     public ResponseEntity<ShiftBreakDto> startLunch(@PathVariable long shiftId) {
         return new ResponseEntity<>(lunchService.startLunch(shiftId), HttpStatus.OK);
     }
 
-    @PutMapping("/{shiftId}/end")
+    @GetMapping("/{shiftId}/end")
     public ResponseEntity<ShiftBreakDto> endLunch(@PathVariable long shiftId) {
         return new ResponseEntity<>(lunchService.endLunch(shiftId), HttpStatus.OK);
     }

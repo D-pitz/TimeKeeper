@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static com.paychex.timekeeper.constant.Constant.UI;
+
 @RestController
 @RequestMapping("/ADMIN/api")
+@CrossOrigin(UI)
 public class AdminController {
 
     @Autowired

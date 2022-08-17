@@ -16,7 +16,7 @@ public class ShiftController {
     private ShiftService shiftService;
 
 
-    @PostMapping("/start/{userId}")
+    @GetMapping("/start/{userId}")
     public ResponseEntity<Object> startShift(@PathVariable long userId) {
         return new ResponseEntity<>(shiftService.startShift(userId), HttpStatus.OK);
     }

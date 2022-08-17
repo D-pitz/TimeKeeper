@@ -16,12 +16,12 @@ public class BreakController {
     @Autowired
     private BreakService breakService;
 
-    @PutMapping("/{shiftId}")
+    @GetMapping("/{shiftId}")
     public ResponseEntity<ShiftBreakDto> startBreak(@PathVariable long shiftId) {
         return new ResponseEntity<>(breakService.startBreak(shiftId), HttpStatus.OK);
     }
 
-    @PutMapping("/{shiftId}/end")
+    @GetMapping("/{shiftId}/end")
     public ResponseEntity<ShiftBreakDto> endBreak(@PathVariable long shiftId) {
         return new ResponseEntity<>(breakService.endBreak(shiftId), HttpStatus.OK);
     }
