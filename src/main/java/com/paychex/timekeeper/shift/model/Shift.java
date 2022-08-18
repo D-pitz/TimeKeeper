@@ -41,7 +41,7 @@ public class Shift {
     private Break aBreak;
 
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public void createBreaks() {
@@ -51,5 +51,6 @@ public class Shift {
 
     public void endShift() {
         this.end = LocalDateTime.now();
+        this.setComplete(true);
     }
 }

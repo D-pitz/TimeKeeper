@@ -7,6 +7,7 @@ public class Messages {
     public static final String INVALID_PW = "Invalid Password";
     public static final String WRONG_PW = "Password incorrect";
     public static final String ACTIVE_SHIFT = "Cannot start a new shift before completing previous shift";
+    public static final String NO_ACTIVE = "User does not have an active shift";
     public static final String INVALID_START = "Cannot start a break while another break is open";
     public static final String DOUBLE_BREAK = "Cannot have multiple breaks during the same shift";
     public static final String INVALID_END = "Cannot end a break before starting";

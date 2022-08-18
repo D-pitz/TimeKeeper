@@ -15,7 +15,7 @@ spring:
         fail-on-empty-beans: false
   jpa:
     database: mysql
-    show-sql: true
+#    show-sql: true
     hibernate:
       ddl-auto: create
       database-platform: org.hibernate.dialect.H2Dialect

@@ -17,7 +17,7 @@ import java.util.Set;
 @ControllerAdvice
 public class ErrorMessage extends RuntimeException{
 
-    HttpStatus status = HttpStatus.BAD_REQUEST;
+    HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
     Set<String> errors = new HashSet<>();
     String error;
     boolean err = false;

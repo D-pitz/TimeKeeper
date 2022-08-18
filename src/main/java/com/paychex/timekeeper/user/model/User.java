@@ -28,7 +28,7 @@ public class User {
     private String role;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     private List<Shift> shifts = new ArrayList<>();
 
 }

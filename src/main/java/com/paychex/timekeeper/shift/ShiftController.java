@@ -8,8 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+import static com.paychex.timekeeper.constant.Constant.UI;
+
 @RestController
 @RequestMapping("/api/shifts")
+@CrossOrigin(UI)
 public class ShiftController {
 
     @Autowired
@@ -26,7 +31,17 @@ public class ShiftController {
         return new ResponseEntity<>(shiftService.getShift(shiftId), HttpStatus.OK);
     }
 
-    @PutMapping("/{shiftId}")
+    @GetMapping("/all/{userId}")
+    public ResponseEntity<List<ShiftBreakDto>> getShiftsByUser(@PathVariable long userId) {
+        return new ResponseEntity<>(shiftService.getShiftsByUser(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/active/{userId}")
+    public ResponseEntity<ShiftBreakDto> getActiveShiftsByUser(@PathVariable long userId) {
+        return new ResponseEntity<>(shiftService.getActiveShift(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{shiftId}/end")
     public ResponseEntity<ShiftBreakDto> endShift(@PathVariable long shiftId) {
         return new ResponseEntity<>(shiftService.endShift(shiftId), HttpStatus.OK);
     }

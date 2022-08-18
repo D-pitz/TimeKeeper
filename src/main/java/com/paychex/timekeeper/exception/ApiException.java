@@ -25,7 +25,7 @@ public class ApiException extends RuntimeException {
         this.cause = super.getCause();
         this.className = className;
         this.error = true;
-        this.status = HttpStatus.BAD_REQUEST;
+        this.status = HttpStatus.NOT_ACCEPTABLE;
         throwEx(this);
     }
 

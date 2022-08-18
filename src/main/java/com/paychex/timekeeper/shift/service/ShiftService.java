@@ -14,14 +14,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.View;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.paychex.timekeeper.constant.Messages.ACTIVE_SHIFT;
-import static com.paychex.timekeeper.constant.Messages.INVALID_ID;
+import static com.paychex.timekeeper.constant.Messages.*;
 
 @Service
 public class ShiftService {
@@ -48,6 +49,7 @@ public class ShiftService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Object startShift(long userId) {
         try {
             User user = userRepo.getById(userId);
@@ -78,5 +80,21 @@ public class ShiftService {
         } catch (EntityNotFoundException e) {
             throw new ApiException(INVALID_ID, e, CLASS);
         }
+    }
+
+    public ShiftBreakDto getActiveShift(long userId) {
+        try {
+            return ShiftBreakDto.of(shiftRepo.findShiftByUserAndComplete(userId, false));
+        } catch (NullPointerException e) {
+            throw new ApiException(NO_ACTIVE, e, CLASS);
+        }
+    }
+
+    public List<ShiftBreakDto> getShiftsByUser(long userId) {
+        User user = userRepo.getById(userId);
+        List<Shift> shifts = user.getShifts();
+        return shifts.stream().filter(Shift::isComplete)
+                .map(ShiftBreakDto::of)
+                .collect(Collectors.toList());
     }
 }
