@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-
 @Repository
 public interface ShiftRepo extends JpaRepository<Shift, Long> {
 
@@ -17,8 +14,4 @@ public interface ShiftRepo extends JpaRepository<Shift, Long> {
             "AND s.complete = :c",
             nativeQuery = true)
     Shift findShiftByUserAndComplete(@Param("userId") Long userId, @Param("c") Boolean complete);
-
-    List<Shift> findAllByUserId(long userId);
-
-    Shift getByUserId(long userId);
 }
