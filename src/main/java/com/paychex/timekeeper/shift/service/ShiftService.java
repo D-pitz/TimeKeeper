@@ -56,7 +56,7 @@ public class ShiftService {
             if (validator.validStartShift(user.getShifts())) {
                 Shift shift = shiftRepo.save(new Shift());
                 userRepo.save(validator.assignShift(user, shift));
-                return ShiftDto.of(shift);
+                return ShiftBreakDto.of(shift);
             }
             throw new ErrorMessage(ACTIVE_SHIFT);
         } catch (EntityNotFoundException e) {
