@@ -2,6 +2,7 @@ package com.paychex.timekeeper.user.service;
 
 import com.paychex.timekeeper.exception.ApiException;
 import com.paychex.timekeeper.messages.Message;
+import com.paychex.timekeeper.user.admin.AdminService;
 import com.paychex.timekeeper.user.model.User;
 import com.paychex.timekeeper.user.model.UserRepo;
 import com.paychex.timekeeper.user.model.util.UserDto;
@@ -23,6 +24,9 @@ public class EmployeeService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private AdminService adminService;
 
     public UserDto createUser(User userData) {
         new Validator().validRole(userData);
@@ -48,6 +52,9 @@ public class EmployeeService {
 
     public UserDto login(User userData) {
         try {
+            User user = userRepo.getById(userData.getId());
+            if (user.getRole().equals("ADMIN"))
+                return adminService.login(userData, user);
             return UserDto.of(userRepo.getById(userData.getId()));
         } catch (EntityNotFoundException e) {
             throw new ApiException(INVALID_ID, e, CLASS);

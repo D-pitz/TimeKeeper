@@ -10,8 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import static com.paychex.timekeeper.constant.Messages.INVALID_PW;
-import static com.paychex.timekeeper.constant.Messages.WRONG_PW;
+import static com.paychex.timekeeper.constant.Messages.*;
 
 public class AdminValidator {
 
@@ -23,10 +22,14 @@ public class AdminValidator {
     }
 
     public User verifyLogin(User userData, User user) {
-        validAdmin(userData);
-        if (!BCrypt.checkpw(userData.getPassword(), user.getPassword()))
-            throw new ErrorMessage(WRONG_PW);
-        return user;
+        try {
+            validAdmin(user);
+            if (!BCrypt.checkpw(userData.getPassword(), user.getPassword()))
+                throw new ErrorMessage(WRONG_PW);
+            return user;
+        } catch (NullPointerException e) {
+            throw new ApiException(PW_REQUIRED, e, CLASS);
+        }
     }
 
     public void validAdmin(User userData) {

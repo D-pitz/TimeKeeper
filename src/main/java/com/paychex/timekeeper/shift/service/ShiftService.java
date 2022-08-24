@@ -91,10 +91,7 @@ public class ShiftService {
     }
 
     public List<ShiftBreakDto> getShiftsByUser(long userId) {
-        User user = userRepo.getById(userId);
-        List<Shift> shifts = user.getShifts();
-        return shifts.stream().filter(Shift::isComplete)
-                .map(ShiftBreakDto::of)
-                .collect(Collectors.toList());
+        List<Shift> shifts = shiftRepo.findAllShiftsByUserAndCompleteOrderByShiftIdDesc(userRepo.getById(userId), true);
+        return shifts.stream().map(ShiftBreakDto::of).collect(Collectors.toList());
     }
 }

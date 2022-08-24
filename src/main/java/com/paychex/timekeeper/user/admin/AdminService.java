@@ -14,12 +14,17 @@ import com.paychex.timekeeper.user.model.User;
 import com.paychex.timekeeper.user.model.UserRepo;
 import com.paychex.timekeeper.user.model.util.Role;
 import com.paychex.timekeeper.user.model.util.UserDto;
+import com.paychex.timekeeper.user.model.util.UserShiftDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.paychex.timekeeper.constant.Messages.INVALID_ID;
 
@@ -48,9 +53,16 @@ public class AdminService {
         return UserDto.of(userRepo.save(userData));
     }
 
-    public UserDto login(User userData) {
+    public List<UserDto> getAll() {
+        return userRepo.findAll().stream()
+                .map(UserDto::of)
+                .collect(Collectors.toList());
+    }
+
+    public UserDto login(User userData, User user) {
         try {
-            User user = userRepo.getById(userData.getId());
+//            User user = userRepo.getById(userData.getId());
+            LOG.info("" + userData);
             return UserDto.of(validator.verifyLogin(userData, user));
         } catch (EntityNotFoundException e) {
             throw new ApiException(INVALID_ID, e, CLASS);
@@ -116,5 +128,13 @@ public class AdminService {
         } catch (EntityNotFoundException e) {
             throw new ApiException(INVALID_ID, e, CLASS);
         }
+    }
+
+        public List<ShiftBreakDto> getShiftsByUserDesc(long userId) {
+        User user = userRepo.getById(userId);
+        List<Shift> shifts = user.getShifts();
+        return shifts.stream().filter(Shift::isComplete)
+                .map(ShiftBreakDto::of)
+                .collect(Collectors.toList());
     }
 }

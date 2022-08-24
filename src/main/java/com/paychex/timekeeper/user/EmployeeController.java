@@ -1,6 +1,7 @@
 package com.paychex.timekeeper.user;
 
 import com.paychex.timekeeper.messages.Message;
+import com.paychex.timekeeper.user.admin.AdminService;
 import com.paychex.timekeeper.user.model.User;
 import com.paychex.timekeeper.user.model.util.UserDto;
 import com.paychex.timekeeper.user.service.EmployeeService;
@@ -18,6 +19,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private AdminService adminService;
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody User userData) {

@@ -4,12 +4,15 @@ import com.paychex.timekeeper.shift.model.util.ShiftBreakDto;
 import com.paychex.timekeeper.shift.model.util.ShiftDto;
 import com.paychex.timekeeper.user.model.User;
 import com.paychex.timekeeper.user.model.util.UserDto;
+import com.paychex.timekeeper.user.model.util.UserShiftDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static com.paychex.timekeeper.constant.Constant.UI;
 
@@ -26,9 +29,9 @@ public class AdminController {
         return new ResponseEntity<>(adminService.createUser(userData), HttpStatus.OK);
     }
 
-    @PostMapping("/users/login")
-    public ResponseEntity<UserDto> login(@RequestBody User userData) {
-        return new ResponseEntity<>(adminService.login(userData), HttpStatus.OK);
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return new ResponseEntity<>(adminService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/shifts/{userId}")
@@ -59,5 +62,10 @@ public class AdminController {
     @GetMapping("/breaks/{shiftId}/end")
     public ResponseEntity<ShiftBreakDto> endBreak(@PathVariable long shiftId) {
         return new ResponseEntity<>(adminService.endBreak(shiftId), HttpStatus.OK);
+    }
+
+    @GetMapping("/shifts/{userId)/desc")
+    public ResponseEntity<List<ShiftBreakDto>> getShiftsByUserDesc(@PathVariable long userId) {
+        return new ResponseEntity<>(adminService.getShiftsByUserDesc(userId), HttpStatus.OK);
     }
 }

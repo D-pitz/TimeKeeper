@@ -13,4 +13,5 @@ public class Messages {
     public static final String INVALID_END = "Cannot end a break before starting";
     public static final String INCOMPLETE = "Break and Lunch must be complete before ending shift";
     public static final String UNAUTHORIZED = "You must have admin credentials to use this service";
+    public static final String PW_REQUIRED = "Password is required for admin users";
 }

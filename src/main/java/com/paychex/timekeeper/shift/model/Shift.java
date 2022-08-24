@@ -21,10 +21,10 @@ public class Shift {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "shift_id")
     private long shiftId;
 
     @JsonFormat(pattern = DATE)
-//    @DateTimeFormat(pattern = DATE)
     private LocalDateTime start = LocalDateTime.now();
 
     @JsonFormat(pattern = DATE)
