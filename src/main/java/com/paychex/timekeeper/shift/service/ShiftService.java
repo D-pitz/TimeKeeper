@@ -67,8 +67,7 @@ public class ShiftService {
     public ShiftBreakDto endShift(long shiftId) {
         try {
             Shift shift = shiftRepo.getById(shiftId);
-            validator.validEndShift(shift);
-            return ShiftBreakDto.of(shiftRepo.save(shift));
+            return ShiftBreakDto.of(shiftRepo.save(validator.validEndShift(shift)));
         } catch (EntityNotFoundException e) {
             throw new ApiException(INVALID_ID, e, CLASS);
         }

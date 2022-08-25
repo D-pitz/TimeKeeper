@@ -1,5 +1,6 @@
 package com.paychex.timekeeper.shift.model;
 
+import com.paychex.timekeeper.shift.breaks.lunch.Lunch;
 import com.paychex.timekeeper.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,8 @@ public interface ShiftRepo extends JpaRepository<Shift, Long> {
     Shift findShiftByUserAndComplete(@Param("userId") Long userId, @Param("c") Boolean complete);
 
     List<Shift> findAllShiftsByUserAndCompleteOrderByShiftIdDesc(User user, boolean c);
+
+    @Query("SELECT s.lunch FROM Shift s " +
+            "WHERE s.user = :user")
+    List<Lunch> findAllLunchByUserId(User user);
 }

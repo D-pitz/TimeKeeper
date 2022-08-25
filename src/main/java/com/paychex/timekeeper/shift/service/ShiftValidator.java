@@ -31,10 +31,13 @@ public class ShiftValidator {
         return user;
     }
 
-    public void validEndShift(Shift shift) {
-        if (shift.getLunch().isComplete() && shift.getABreak().isComplete())
+    public Shift validEndShift(Shift shift) {
+        if (shift.getLunch().isComplete() && shift.getABreak().isComplete()) {
             shift.endShift();
-        else
+            return shift;
+        }
+        else {
             throw new ErrorMessage(INCOMPLETE);
+        }
     }
 }

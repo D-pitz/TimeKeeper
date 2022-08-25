@@ -64,7 +64,7 @@ public class AdminController {
         return new ResponseEntity<>(adminService.endBreak(shiftId), HttpStatus.OK);
     }
 
-    @GetMapping("/shifts/{userId)/desc")
+    @GetMapping("/shifts/{userId}/desc")
     public ResponseEntity<List<ShiftBreakDto>> getShiftsByUserDesc(@PathVariable long userId) {
         return new ResponseEntity<>(adminService.getShiftsByUserDesc(userId), HttpStatus.OK);
     }

@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ShiftInfo {
     private long userId;
-    private double totalLunch;
-    private double totalBreak;
-    private double averageLunch;
-    private double averageBreak;
+    private long shiftId;
+    private double avgBreak;
+    private double avgLunch;
     private int shiftsWorked;
 }
